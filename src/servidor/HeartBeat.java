@@ -8,8 +8,7 @@ package servidor;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import monitor.Monitor;
 
 /**
  *
@@ -34,11 +33,13 @@ public class HeartBeat extends Thread{
 	private void enviarLatidos() {
 		while (true) {			
 			try {
-				System.out.println("Enviando...");
-				this.salida.println("-1<quien");
-				Thread.sleep(3000);
+				Monitor monitor = new Monitor();
+				String resultado = monitor.resultCommands();
+				System.out.println(resultado);
+				this.salida.println(resultado);
+				Thread.sleep(30000);
 			} catch (InterruptedException ex) {
-				Logger.getLogger(HeartBeat.class.getName()).log(Level.SEVERE, null, ex);
+				System.err.println("Se ha probocado un problema al intentar enviar. \n" + ex);
 			}
 		}
 	}
