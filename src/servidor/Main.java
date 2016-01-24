@@ -16,7 +16,10 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		int puerto = 6969;
+		String host = "localhost";
 		Servidor servidor = new Servidor(puerto);
+		HeartBeat heartBeat = new HeartBeat(8000, host);
+		heartBeat.start();
 		servidor.iniciar();
 	}
 }
