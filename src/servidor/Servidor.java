@@ -6,6 +6,7 @@
 package servidor;
 
 import base.Conexion;
+import base.Tabla;
 
 /**
  *
@@ -18,6 +19,7 @@ public class Servidor {
 	 */
 	public static void main(String[] args) {
 		Conexion con = new Conexion();
-		System.out.println(con.getConexion());
+		Tabla tabla = new Tabla();
+		System.out.println(tabla.encontrarClavePorValor("4d186321c1a7f0f354b297e8914ab240").clave);
 	}
 }
