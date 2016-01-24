@@ -5,21 +5,34 @@
  */
 package servidor;
 
-import base.Conexion;
-import base.Tabla;
+import java.io.IOException;
+import java.net.ServerSocket;
 
 /**
  *
  * @author camm
  */
 public class Servidor {
+	private int puerto;
+	private ServerSocket serverSocket;
 
-	/**
-	 * @param args the command line arguments
-	 */
-	public static void main(String[] args) {
-		Conexion con = new Conexion();
-		Tabla tabla = new Tabla();
-		System.out.println(tabla.encontrarClavePorValor("4d186321c1a7f0f354b297e8914ab240").clave);
+	public Servidor(int puerto) {
+		try {
+			this.puerto = puerto;
+			this.serverSocket = new ServerSocket(this.puerto);
+		} catch (IOException ex) {
+			System.err.println("No se pudo conectar. Problemas I/O.\n" + ex);
+		}
+	}
+
+	public void iniciar(){
+		while (true) {
+			try {
+				ConexionCliente cc = new ConexionCliente(this.serverSocket.accept());
+				cc.start();
+			} catch (IOException ex) {
+				System.err.println("No se pudo realizar la conexión. Consulte a su servidor.\n" + ex);
+			}
+		}
 	}
 }
