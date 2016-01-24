@@ -31,9 +31,9 @@ public class HeartBeat extends Thread{
 	}
 
 	private void enviarLatidos() {
-		while (true) {			
+		Monitor monitor = new Monitor();
+		while (true) {
 			try {
-				Monitor monitor = new Monitor();
 				String resultado = monitor.resultCommands();
 				System.out.println(resultado);
 				this.salida.println(resultado);
