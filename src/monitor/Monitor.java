@@ -18,6 +18,8 @@ import java.util.regex.Pattern;
 public class Monitor {
 	public String resultCommands(){
 		String resultUptime = filtrar(resultadoComando("uptime"), "load average:\\s*((?:(?:\\d,\\d{2}), *){2}\\d,\\d{2})");
+		resultUptime = resultUptime.replaceAll(",\\s", " ");
+		resultUptime = resultUptime.replaceAll(",", ".");
 		String resultFree = filtrar(resultadoComando("free"), "Mem:\\s*\\d.*?\\s+\\d+\\s*(\\d+)");
 		return resultFree + " " + resultUptime;
 	}
