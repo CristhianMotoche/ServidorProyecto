@@ -41,7 +41,7 @@ public class ConexionCliente extends Thread{
 		try {
 			String textoRecibido;
 			while ((textoRecibido = this.entrada.readLine()) != null) {
-				String resultado = procesar(textoRecibido);
+				String resultado = procesar(textoRecibido.trim());
 				System.out.println("Hash: " + textoRecibido + ". Valor: " + resultado);
 				enviarMensaje(resultado);
 			}
@@ -51,7 +51,6 @@ public class ConexionCliente extends Thread{
 	}
 
 	private void enviarMensaje(String mensaje) {
-		System.out.println("Mensaje: " + mensaje);
 		this.salida.println(mensaje);
 	}
 
