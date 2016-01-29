@@ -28,13 +28,13 @@ public class ConexionCliente extends Thread{
 			this.salida = new PrintWriter(this.cliente.getOutputStream(), true);
 		} catch (IOException ex) {
 			System.out.println("Error al intentar establecer el procedimiento de lectura/escritura\n" + ex);
+			System.exit(1);
 		}
 	}
 
 	@Override
 	public void run(){
 		recibirMensaje();
-		enviarMensaje("Hola");
 	}
 
 	private void recibirMensaje() {
@@ -47,6 +47,7 @@ public class ConexionCliente extends Thread{
 			}
 		} catch (IOException ex) {
 			System.out.println("Error al intentar leer/escribir:\n" + ex);
+			System.exit(1);
 		}
 	}
 

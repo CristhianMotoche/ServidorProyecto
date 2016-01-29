@@ -16,7 +16,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		int puerto = 6969;
-		String host = "192.168.0.100";
+		String host = "10.0.0.2";
 		Servidor servidor = new Servidor(puerto);
 		HeartBeat heartBeat = new HeartBeat(8000, host);
 		heartBeat.start();

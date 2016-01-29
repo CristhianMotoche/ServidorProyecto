@@ -32,6 +32,7 @@ public class Servidor {
 				cc.start();
 			} catch (IOException ex) {
 				System.err.println("No se pudo realizar la conexión. Consulte a su servidor.\n" + ex);
+				System.exit(1);
 			}
 		}
 	}
