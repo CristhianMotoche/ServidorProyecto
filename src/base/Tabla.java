@@ -31,7 +31,6 @@ public class Tabla {
 			pst.setString(2, resultado.valor);
 			return pst.executeUpdate()!= 0;
 		} catch (SQLException ex) {
-			System.err.println("Error: " + ex);
 			return false;
 		}
 	}

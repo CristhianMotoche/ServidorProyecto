@@ -5,6 +5,8 @@
  */
 package servidor;
 
+import soporte.TwitterThread;
+
 /**
  *
  * @author camm
@@ -18,8 +20,13 @@ public class Main {
 		int puerto = 6969;
 		String host = "10.0.0.2";
 		Servidor servidor = new Servidor(puerto);
+		// Enviar latidos
 		HeartBeat heartBeat = new HeartBeat(8000, host);
 		heartBeat.start();
+		// Obtener tweets
+		TwitterThread tt = new TwitterThread();
+		tt.start();
+		// Iniciar servidor
 		servidor.iniciar();
 	}
 }

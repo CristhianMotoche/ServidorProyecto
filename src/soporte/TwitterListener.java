@@ -5,12 +5,12 @@
 */
 package soporte;
 
+import base.Resultado;
 import base.Tabla;
 import twitter4j.StallWarning;
 import twitter4j.Status;
 import twitter4j.StatusDeletionNotice;
 import twitter4j.StatusListener;
-import twitter4j.User;
 
 /**
  *
@@ -20,13 +20,8 @@ public class TwitterListener implements StatusListener{
 
 	@Override
 	public void onStatus(Status status) {
-		// AQUI SI
-		Tabla tabla = new Tabla();
-		User user = status.getUser();
-		String username = status.getUser().getScreenName();
-		System.out.println(username);
 		String content = status.getText();
-		System.out.println(content +"\n");
+		insertarPalabras(filtrarPendejadas(content));
 	}
 
 	@Override
@@ -43,4 +38,28 @@ public class TwitterListener implements StatusListener{
 
 	@Override
 	public void onException(Exception excptn) {	}
+
+	public String filtrarPendejadas(String tweet){
+		tweet = tweet.replaceAll("@\\w*|~|-|_|\\n|y|  |\\|quito|—|rt|'|=|https://tcp/\\w*|…|\\d|\\(|\\)|#\\w*|:|¡|\\+|\\*|!|,|\\.|¿|\"|\\?|http.*.co\\/\\w*", "");
+		tweet = tweet.replaceAll("á", "a");
+		tweet = tweet.replaceAll("é", "e");
+		tweet = tweet.replaceAll("í", "i");
+		tweet = tweet.replaceAll("ó", "o");
+		tweet = tweet.replaceAll("ú", "u");
+		tweet = tweet.replaceAll("ñ", "n");
+		return tweet.toLowerCase().trim();
+	}
+
+	public void insertarPalabras(String palabras){
+		Tabla tabla = new Tabla();
+		for (String palabra : palabras.split(" ")) {
+			if (!palabra.equals(" ")) {
+				Resultado resultado = new Resultado();
+				resultado.clave = palabra;
+				resultado.valor = Cifrador.md5(palabra);
+				System.out.println("Clave: " + resultado.clave + "Valor: " + resultado.valor);
+				tabla.insertar(resultado);
+			}
+		}
+	}
 }

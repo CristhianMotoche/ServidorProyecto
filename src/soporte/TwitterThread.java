@@ -14,5 +14,6 @@ public class TwitterThread extends Thread{
 	public void run(){
 		GetTweets obtenedorDeTweets = new GetTweets();
 		obtenedorDeTweets.addListener(new TwitterListener());
+		obtenedorDeTweets.filtrar();
 	}
 }
