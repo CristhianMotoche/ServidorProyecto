@@ -1,0 +1,15 @@
+# Servidor
+
+## Maven Steps:
+
+```
+mvn compile
+mvn dependency:copy-dependencies
+mvn package
+```
+
+## Excecute
+
+```
+java -cp target/dependency/*:target/Servidor-1.0.jar com.servidor.servidor.Main
+```
