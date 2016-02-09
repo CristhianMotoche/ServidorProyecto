@@ -17,7 +17,7 @@ public class Main {
 	 * @param args the command line arguments
 	 */
 	public static void main(String[] args) {
-		int puerto = Integer.parseInt(args[0]);
+		int puerto = Integer.parseInt(System.getenv("PORT"));
 		String host = "192.168.0.101";
 		Servidor servidor = new Servidor(puerto);
 		// Enviar latidos
