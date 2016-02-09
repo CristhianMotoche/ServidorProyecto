@@ -16,12 +16,14 @@ public class Conexion {
 	 public Conexion() {
         conexion = null;
         try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-            conexion = DriverManager.getConnection("jdbc:derby://localhost:1527/sample; create = true; user = app; password = app");
+            Class.forName("org.postgresql.Driver");
+			String dbUrl = System.getenv("DATABASE_URL");
+			// "jdbc:postgresql://localhost:5432/sample?user=camm&password=1234"
+            conexion = DriverManager.getConnection(dbUrl);
         } catch (ClassNotFoundException | SQLException ex) {
             System.err.print("Error " + ex);
         }
     }
-    
+
     public Connection getConexion(){ return conexion; }
 }
