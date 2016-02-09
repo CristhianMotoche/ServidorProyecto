@@ -9,6 +9,8 @@ package com.servidor.base;
  *
  * @author camm
  */
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.*;
 
 public class Conexion {
@@ -17,11 +19,22 @@ public class Conexion {
         conexion = null;
         try {
             Class.forName("org.postgresql.Driver");
-			String dbUrl = System.getenv("DATABASE_URL");
-			// "jdbc:postgresql://localhost:5432/sample?user=camm&password=1234"
-            conexion = DriverManager.getConnection(dbUrl);
+			URI dbUri;
+			try {
+				dbUri = new URI(System.getenv("DATABASE_URL"));
+				String username = dbUri.getUserInfo().split(":")[0];
+				String password = dbUri.getUserInfo().split(":")[1];
+				String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+
+				// "jdbc:postgresql://localhost:5432/sample?user=camm&password=1234"
+				conexion = DriverManager.getConnection(dbUrl, username, password);;
+			} catch (URISyntaxException ex) {
+				System.err.print("Error la PTM: " + ex);
+				System.exit(1);
+			}
         } catch (ClassNotFoundException | SQLException ex) {
-            System.err.print("Error " + ex);
+            System.err.print("Error la PTM: " + ex);
+			System.exit(1);
         }
     }
 
