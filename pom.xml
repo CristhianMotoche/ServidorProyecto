@@ -48,7 +48,7 @@
                     <assembleDirectory>target</assembleDirectory> 
                     <programs>
                         <program>
-                            <mainClass>com.heroku.example.Main</mainClass>
+                            <mainClass>com.servidor.servidor.Main</mainClass>
                             <name>main</name>
                         </program>
                     </programs>
