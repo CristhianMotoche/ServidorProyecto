@@ -17,9 +17,7 @@ import java.util.regex.Pattern;
  */
 public class Monitor {
 	public String resultCommands(){
-		String resultUptime = filtrar(resultadoComando("uptime"), "load average:\\s*((?:(?:\\d,\\d{2}), *){2}\\d,\\d{2})");
-		resultUptime = resultUptime.replaceAll(",\\s", " ");
-		resultUptime = resultUptime.replaceAll(",", ".");
+		String resultUptime = filtrarUptime(resultadoComando("uptime"), "load average:\\s*((?:(?:\\d\\.\\d{2})\\.*)),\\s*((?:(?:\\d\\.\\d{2})\\.*)),\\s*((?:(?:\\d\\.\\d{2})\\.*))");
 		String resultFree = filtrar(resultadoComando("free"), "Mem:\\s*\\d.*?\\s+\\d+\\s*(\\d+)");
 		return resultFree + " " + resultUptime;
 	}
@@ -41,6 +39,20 @@ public class Monitor {
 		return ret;
 	}
 	
+	private String filtrarUptime(String cadena, String patron){
+		String ret;
+		Pattern r = Pattern.compile(patron);
+		Matcher m = r.matcher(cadena);
+		if (m.find()) {
+			ret = m.group(1) + " ";
+			ret += m.group(2) + " ";
+			ret += m.group(3);
+		} else {
+			ret = "NO MATCH";
+		}
+		return ret;
+	}
+
 	private String filtrar(String cadena, String patron){
 		String ret;
 		Pattern r = Pattern.compile(patron);

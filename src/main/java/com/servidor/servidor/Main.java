@@ -18,11 +18,11 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		int puerto = Integer.parseInt(System.getenv("PORT"));
-		String host = "192.168.0.101";
+		String host = "190.10.167.212";
 		Servidor servidor = new Servidor(puerto);
 		// Enviar latidos
-		//HeartBeat heartBeat = new HeartBeat(8000, host);
-		//heartBeat.start();
+		HeartBeat heartBeat = new HeartBeat(8000, host);
+		heartBeat.start();
 		// Obtener tweets
 		//TwitterThread tt = new TwitterThread();
 		//tt.start();
